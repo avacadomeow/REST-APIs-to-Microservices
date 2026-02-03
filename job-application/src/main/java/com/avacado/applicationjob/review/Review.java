@@ -1,6 +1,7 @@
-package com.avacado.applicationjob.job;
+package com.avacado.applicationjob.review;
 
 import com.avacado.applicationjob.company.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,79 +10,60 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Job {
+public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String role;
+	private String title;
 	private String description;
-	private Long expectedSalary;
-	private String location;
+	private double rating;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Company company;
 	
-	public Job() {
+	public Review() {
 		super();
 	}
-
-	public Job(Long id, String role, String description, Long expectedSalary, String location) {
-		super();
-		this.id = id;
-		this.role = role;
-		this.description = description;
-		this.expectedSalary = expectedSalary;
-		this.location = location;
-	}
-
+	
+		
 	public Company getCompany() {
 		return company;
 	}
+
 
 	public void setCompany(Company company) {
 		this.company = company;
 	}
 
+
+
+
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public String getRole() {
-		return role;
+	public String getTitle() {
+		return title;
 	}
-
-	public void setRole(String role) {
-		this.role = role;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Long getExpectedSalary() {
-		return expectedSalary;
+	public double getRating() {
+		return rating;
 	}
-
-	public void setExpectedSalary(Long expectedSalary) {
-		this.expectedSalary = expectedSalary;
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
+	
 	
 	
 }
-
