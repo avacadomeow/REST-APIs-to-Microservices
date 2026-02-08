@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.avacado.jobmicroservice.job.dto.JobCompanyDTO;
+
 @RestController
 @RequestMapping("/jobs")
 public class ControllerJob {
@@ -24,7 +26,7 @@ public class ControllerJob {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Job>> findAll(){
+	public ResponseEntity<List<JobCompanyDTO>> findAll(){
 		return ResponseEntity.ok(serviceJob.findAll());
 	}
 	

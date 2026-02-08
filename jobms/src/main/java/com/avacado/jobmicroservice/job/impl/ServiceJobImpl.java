@@ -1,13 +1,16 @@
 package com.avacado.jobmicroservice.job.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.client.RestTemplate;
+import com.avacado.jobmicroservice.job.external.Company;
 import com.avacado.jobmicroservice.job.Job;
 import com.avacado.jobmicroservice.job.RepositoryJob;
 import com.avacado.jobmicroservice.job.ServiceJob;
+import com.avacado.jobmicroservice.job.dto.JobCompanyDTO;
 
 @Service
 public class ServiceJobImpl implements ServiceJob{
@@ -20,8 +23,19 @@ public class ServiceJobImpl implements ServiceJob{
 	}
 
 	@Override
-	public List<Job> findAll() {
-		return repositoryJob.findAll();
+	public List<JobCompanyDTO> findAll() {
+		List<Job> jobs = repositoryJob.findAll();
+		List<JobCompanyDTO> jobCompanyDTOs = new ArrayList<>(); 
+		
+		RestTemplate restTemplate = new RestTemplate();
+		for(Job job : jobs) {
+			JobCompanyDTO jobCompanyDTO = new JobCompanyDTO();
+			jobCompanyDTO.setJob(job);
+			Company company = restTemplate.getForObject("http://localhost:8081/companies/" + job.getCompanyId(), Company.class);
+			jobCompanyDTO.setCompany(company);
+			jobCompanyDTOs.add(jobCompanyDTO);
+		}
+		return jobCompanyDTOs;
 	}
 
 	@Override

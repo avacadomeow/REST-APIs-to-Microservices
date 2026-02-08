@@ -2,8 +2,10 @@ package com.avacado.jobmicroservice.job;
 
 import java.util.List;
 
+import com.avacado.jobmicroservice.job.dto.JobCompanyDTO;
+
 public interface ServiceJob {
-	List<Job> findAll();
+	List<JobCompanyDTO> findAll();
 	void createJob(Job job);
 	Job getJobWithId(Long id);
 	boolean deleteJobWithId(Long id);
